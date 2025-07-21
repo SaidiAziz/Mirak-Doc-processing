@@ -1,0 +1,19 @@
+{
+  "Bill": {
+    "keywords": ["invoice", "amount due", "total"],
+    "description": "A bill or invoice document."
+  },
+  "Identity Document": {
+    "keywords": ["passport", "identity card", "date of birth"],
+    "description": "Official identity documents."
+  },
+  "Contract": {
+    "keywords": ["agreement", "party", "signature"],
+    "description": "Legal contract documents."
+  },
+  "Functional Document": {
+    "keywords": ["manual", "instructions", "procedure"],
+    "description": "Documents describing functions or procedures."
+  }
+}
+
