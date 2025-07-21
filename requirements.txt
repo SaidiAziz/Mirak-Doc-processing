@@ -4,3 +4,5 @@ python-dotenv
 pillow
 pytesseract
 pymupdf
+nltk
+soundex
