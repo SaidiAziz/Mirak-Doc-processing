@@ -36,6 +36,7 @@ def add_document(document: Document):
     finally:
         session.close()
 
+
 def add_token(token: Token):
     """
     Adds a new token to the database.
@@ -57,6 +58,7 @@ def add_token(token: Token):
     finally:
         session.close()
 
+
 def add_document_type(document_type: DocumentType):
     """
     Adds a new document type to the database.
@@ -77,6 +79,7 @@ def add_document_type(document_type: DocumentType):
         raise e
     finally:
         session.close()
+
 
 def add_document_embedding(document_embedding: DocumentEmbedding):
     """

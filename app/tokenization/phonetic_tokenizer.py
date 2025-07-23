@@ -4,6 +4,8 @@ import unicodedata
 from nltk import word_tokenize
 import soundex
 
+from app.utils.helpers import remove_accents
+
 # nltk.download('punkt')
 
 
@@ -24,12 +26,6 @@ def tokenize_text(text):
     """
     tokens = word_tokenize(text)
     return tokens  # Print the tokens for debugging purposes
-
-
-def remove_accents(text):
-    """Normalize French diacritics to base characters"""
-    nfkd_form = unicodedata.normalize('NFKD', text)
-    return ''.join(c for c in nfkd_form if not unicodedata.combining(c))
 
 
 def phonetic_tokenization(text):
