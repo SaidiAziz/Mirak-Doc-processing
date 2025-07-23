@@ -5,10 +5,11 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.db.models import Base
-from app.db.db_utils import engine
+from app.db.db_connection import engine
 
 if __name__ == "__main__":
     print("Creating database tables...")
+    engine = engine()
     Base.metadata.create_all(bind=engine)
     print("Done.")
 

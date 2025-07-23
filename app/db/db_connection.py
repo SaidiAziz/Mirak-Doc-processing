@@ -7,15 +7,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def connect_db():
+def engine():
     host = os.getenv("HOST")  # Default to localhost if not set
     database = os.getenv("DATABASE")  # Default to 'postgres' if not set
     user = os.getenv("USER")  # Default to 'postgres' if not set
     password = os.getenv("PASSWORD")  # Default to 'postgres' if not set
     port = os.getenv("PORT")  # Default PostgreSQL port
 
-    DATABASE_URI = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
-    engine = create_engine(DATABASE_URI)
+    db_url = f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}"
+    engine = create_engine(db_url)
 
     try:
         connection = engine.connect()
