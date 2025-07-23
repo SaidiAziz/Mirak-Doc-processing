@@ -1,12 +1,13 @@
 import re
 
+import nltk
 import unicodedata
 from nltk import word_tokenize
 import soundex
 
 from app.utils.helpers import remove_accents
 
-# nltk.download('punkt')
+#nltk.download('punkt_tab')
 
 
 french_soundex = soundex.Soundex()
