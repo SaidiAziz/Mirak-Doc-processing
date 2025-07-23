@@ -6,3 +6,4 @@ pytesseract
 pymupdf
 nltk
 soundex
+sqlalchemy
