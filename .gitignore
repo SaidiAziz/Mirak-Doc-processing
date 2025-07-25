@@ -19,4 +19,13 @@ sdist/
 var/
 *.egg-info/
 .installed.cfg
-*.egg 
+*.egg
+/documents/inputs/Attestation de Stage - Aziz.pdf
+/documents/inputs/img_1.jpg
+/documents/inputs/Aziz_SAIDI_CV.pdf
+/documents/inputs/demande de stage.pdf
+/documents/inputs/esprit-tn.com_esponline_Etudiants_lettre.aspx.pdf
+/documents/inputs/bukowski drink from the well of yourself.jpg
+/documents/inputs/licence.jpeg
+/documents/inputs/relevé de note 3éme.jpeg
+/documents/inputs/relax it's just life.jpg
