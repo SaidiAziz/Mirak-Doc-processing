@@ -4,6 +4,7 @@ from app.db.db_utils import add_document, add_token, get_session
 from app.db.models import Document, Token
 from app.ingestion.extraction import extract_text_from_pdf
 from app.ingestion.file_loader import load_file
+from app.ingestion.ocr import extract_text_from_image
 from app.tokenization.phonetic_tokenizer import tokenize_text, phonetic_tokenization
 
 
@@ -19,8 +20,8 @@ def main():
     try:
         # Get the project root directory (parent of the app directory)
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        input_path = os.path.join(project_root, "documents", "inputs", "sample.pdf")
-        text = extract_text_from_pdf(input_path)  # Example file path, replace with actual file input
+        input_path = os.path.join(project_root, "documents", "inputs", "img_1.jpg")
+        text = extract_text_from_image(input_path)  # Example file path, replace with actual file input
 
         print(f"Extracted text:", text)  # Print first 100 characters for debugging
 
