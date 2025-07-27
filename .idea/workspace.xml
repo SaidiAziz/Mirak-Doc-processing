@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a462d05a-3bb6-4301-8738-ecda558dec7d" name="Changes" comment="test images">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/classification/classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/classification/classifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/classification/doc_types.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/classification/doc_types.json" afterDir="false" />
-    </list>
+    <list default="true" id="a462d05a-3bb6-4301-8738-ecda558dec7d" name="Changes" comment="test images" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Pipeline-sorcery",
+    "git-widget-placeholder": "odyssey",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
