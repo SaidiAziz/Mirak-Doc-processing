@@ -37,7 +37,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(os.path.dirname(script_dir))
 labels_path = os.path.join(script_dir, 'doc_types.json')
 #input_path = os.path.join(project_root, 'documents', 'inputs', 'img_2.png')
-input_path=r"C:\Users\azsai\.cache\kagglehub\datasets\shaz13\real-world-documents-collections\versions\1\docs-sm\budget\03064866.jpg"
+input_path=r"C:\Users\azsai\.cache\kagglehub\datasets\shaz13\real-world-documents-collections\versions\1\docs-sm\invoice\ti10161552.jpg"
 
 with open(labels_path, 'r') as f:
     doc_labels = json.load(f)

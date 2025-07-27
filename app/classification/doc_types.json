@@ -1,45 +1,29 @@
 {
   "Bill": {
     "keywords": [
-      "invoice", "amount due", "total", "bill", "statement", "payment", "balance", "due date", "reference number", "remittance"
+      "invoice", "amount due", "total", "bill", "Billing","statement", "payment", "balance", "due date",
+      "reference number", "remittance", "payable to", "service period", "late fee", "tax amount",
+      "subtotal", "outstanding balance", "payment terms", "account summary", "minimum payment",
+      "billing cycle", "amount paid", "previous balance", "new charges","Charges"
     ],
-    "description": "A document requesting payment for goods or services, such as an invoice or bill."
+    "description": "Document requesting payment for goods/services rendered, containing specific transactional details and payment instructions."
   },
   "Identity Document": {
     "keywords": [
-      "passport", "identity card", "date of birth", "ID number", "nationality", "driver's license", "photo", "expiration date"
+      "passport", "identity card", "date of birth", "ID number", "nationality", "driver's license",
+      "photo", "expiration date", "issuing authority", "place of birth", "biometric data",
+      "document type", "signature holder", "MRZ (machine readable zone)", "personal identification number",
+      "government-issued", "residential address", "document class", "issuance date", "security features"
     ],
-    "description": "Official documents used to verify a person's identity, such as passports, ID cards, or driver's licenses."
+    "description": "Government-issued credential verifying personal identity with security features and biometric data."
   },
   "Contract": {
     "keywords": [
-      "agreement", "party", "signature", "terms", "conditions", "effective date", "obligations", "witness", "contract number"
+      "agreement", "party", "signature", "terms", "conditions", "effective date", "obligations",
+      "witness", "contract number", "clause", "indemnification", "termination", "confidentiality",
+      "jurisdiction", "notarization", "breach", "consideration", "force majeure", "amendment",
+      "exhibit", "schedule", "recitals", "assignment", "governing law"
     ],
-    "description": "Legal documents outlining agreements between parties, including terms, conditions, and signatures."
-  },
-  "Functional Document": {
-    "keywords": [
-      "manual", "instructions", "procedure", "how to", "guide", "steps", "operation", "user manual", "reference"
-    ],
-    "description": "Documents that provide instructions or describe procedures, such as manuals or guides."
-  },
-
-  "Financial Document": {
-    "keywords": [
-      "financial statement", "balance sheet", "income statement", "cash flow", "assets", "liabilities", "equity", "revenue"
-    ],
-    "description": "Documents related to financial information, such as balance sheets, income statements, or cash flow statements."
-  },
-  "Legal Document": {
-    "keywords": [
-      "court order", "legal notice", "lawsuit", "complaint", "judgment", "legal agreement", "case number", "plaintiff"
-    ],
-    "description": "Documents related to legal matters, including court orders, legal notices, and agreements."
-  },
-    "Medical Document": {
-        "keywords": [
-        "medical report", "diagnosis", "treatment", "prescription", "health record", "patient", "doctor", "medical history"
-        ],
-        "description": "Documents related to medical information, such as medical reports, prescriptions, or health records."
-    }
+    "description": "Legally binding agreement defining rights/obligations between parties with enforceable clauses."
+  }
 }
