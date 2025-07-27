@@ -2,6 +2,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+
 from app.ingestion.extraction import extract_text_from_pdf
 from app.ingestion.file_loader import load_file
 
@@ -35,17 +36,18 @@ def classify_document(text, labels):
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(os.path.dirname(script_dir))
 labels_path = os.path.join(script_dir, 'doc_types.json')
-input_path = os.path.join(project_root, 'documents', 'inputs', 'img_2.png')
+#input_path = os.path.join(project_root, 'documents', 'inputs', 'img_2.png')
+input_path=r"C:\Users\azsai\.cache\kagglehub\datasets\shaz13\real-world-documents-collections\versions\1\docs-sm\budget\03064866.jpg"
 
 with open(labels_path, 'r') as f:
     doc_labels = json.load(f)
 labels = list(doc_labels.keys())
 
-# ✅ Extract text from PDF (with fallback)
+# ✅ Extract text from document (with fallback)
 try:
     text_to_classify = load_file(input_path)
 except FileNotFoundError:
-    print(f"⚠ sample.pdf not found at {input_path}! Using fallback text.")
+    print(f"⚠ document not found at {input_path}! Using fallback text.")
     text_to_classify = "This is an invoice for services rendered."
 
 # ✅ Classify
