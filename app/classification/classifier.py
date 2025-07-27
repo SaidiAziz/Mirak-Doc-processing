@@ -32,16 +32,20 @@ def classify_document(text, labels):
 
 
 # ✅ Load JSON labels
-with open('doc_types.json', 'r') as f:
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(os.path.dirname(script_dir))
+labels_path = os.path.join(script_dir, 'doc_types.json')
+input_path = os.path.join(project_root, 'documents', 'inputs', 'img_2.png')
+
+with open(labels_path, 'r') as f:
     doc_labels = json.load(f)
 labels = list(doc_labels.keys())
 
-path = "sample.pdf"
 # ✅ Extract text from PDF (with fallback)
 try:
-    text_to_classify = load_file(path)
+    text_to_classify = load_file(input_path)
 except FileNotFoundError:
-    print("⚠ sample.pdf not found! Using fallback text.")
+    print(f"⚠ sample.pdf not found at {input_path}! Using fallback text.")
     text_to_classify = "This is an invoice for services rendered."
 
 # ✅ Classify
