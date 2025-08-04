@@ -1,6 +1,6 @@
 # session_manager.py
 from sqlalchemy.orm import sessionmaker
-from app.db.DbConnection import DbConnection
+from app.db.DB_Connection import DbConnection
 
 
 class SessionManager:
