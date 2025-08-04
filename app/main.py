@@ -1,7 +1,7 @@
 import os
 from app.config import load_config
 from app.db.db_utils import add_document, add_token, get_session
-from app.db.models import Document, Token
+from app.db.Models import Document, Token
 from app.ingestion.extraction import extract_text_from_pdf
 from app.ingestion.file_loader import load_file
 from app.ingestion.ocr import extract_text_from_image

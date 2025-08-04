@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.db.SessionManager import SessionManager
-from app.db.models import Document, Token, DocumentType, DocumentEmbedding
+from app.db.Models import Document, Token, DocumentType, DocumentEmbedding
 
 session_manager = SessionManager.get_session()
 
