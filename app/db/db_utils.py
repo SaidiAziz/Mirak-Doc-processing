@@ -1,27 +1,9 @@
-from sqlalchemy.orm import Session, sessionmaker
-from app.db.db_connection import engine as get_engine
+from sqlalchemy.orm import Session
+
+from app.db.SessionManager import SessionManager
 from app.db.models import Document, Token, DocumentType, DocumentEmbedding
 
-# Get the actual engine instance
-engine = get_engine()
-
-# Create a session factory at module level
-SessionLocal = sessionmaker(
-    bind=engine,
-    autocommit=False,
-    autoflush=False,
-    expire_on_commit=False  # Prevent detached instance errors
-)
-
-
-def get_session():
-    """
-    Creates a new SQLAlchemy session.
-
-    Returns:
-        Session: A new session instance.
-    """
-    return SessionLocal()
+session_manager = SessionManager.get_session()
 
 
 def add_document(session: Session, document: Document):

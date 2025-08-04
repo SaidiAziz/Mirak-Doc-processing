@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app.db.models import Base
-from app.db.db_connection import engine
+from app.db.DbConnection import engine
 
 if __name__ == "__main__":
     print("Creating database tables...")

@@ -15,7 +15,11 @@ class DbConnection:
         self.host = os.getenv("HOST")
         self.database = os.getenv("DATABASE")
         self.user = os.getenv("USER")
-    def create_engine(self):
+        self.password = os.getenv("PASSWORD")
+        self.port = os.getenv("PORT", "5432")
+        self.engine = None
+
+    def make_engine(self):
         """Create and return SQLAlchemy engine."""
         try:
             db_url = f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
@@ -24,19 +28,15 @@ class DbConnection:
             return self.engine
         except Exception as e:
             print(f"Failed to create database engine: {e}")
-            raise        """Create and return SQLAlchemy engine."""
-        db_url = f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-        self.engine = create_engine(db_url)
-        return self.engine
+            raise e
 
     def connect(self):
         """Establish a connection to the database."""
         if not self.engine:
-            self.create_engine()
+            self.make_engine()
         try:
             self.connection = self.engine.connect()
             print("Database connection established successfully.")
-            self.connection.close()  # Close the connection immediately if not needed
             return True
         except Exception as e:
             print(f"Failed to connect to the database: {e}")
@@ -44,7 +44,6 @@ class DbConnection:
 
     def get_engine(self):
         """Get the SQLAlchemy engine."""
-#     except Exception as e:
-#         print(f"Failed to connect to the database: {e}")
-#
-#     return engine
+        if not self.engine:
+            self.make_engine()
+        return self.engine
