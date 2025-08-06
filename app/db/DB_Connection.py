@@ -7,6 +7,7 @@ load_dotenv()
 
 class DbConnection:
     def __init__(self):
+        self.connection = None
         required_env_vars = ["HOST", "DATABASE", "USER", "PASSWORD", "PORT"]
         missing_vars = [var for var in required_env_vars if not os.getenv(var)]
         if missing_vars:

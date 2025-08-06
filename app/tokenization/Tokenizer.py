@@ -39,7 +39,7 @@ class Tokenizer:
         """
         # Text normalization pipeline
         text = text.lower()  # Case normalization
-        text = text.remove_accents(text)  # Diacritic removal
+        #text = text.remove_accents(text)  # Diacritic removal
         text = re.sub(r'[^\w\s]', '', text)  # Punctuation removal
 
         # Tokenize with French context
@@ -76,6 +76,7 @@ class Tokenizer:
 
         return phonetic_tokens
 
+    @staticmethod
     def remove_accents(text):
         """Normalize French diacritics to base characters"""
         nfkd_form = unicodedata.normalize('NFKD', text)
