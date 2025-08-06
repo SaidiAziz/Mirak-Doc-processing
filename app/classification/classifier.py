@@ -1,57 +1,47 @@
-import requests
-import json
 import os
+import json
+import requests
 from dotenv import load_dotenv
-
-from app.ingestion.extraction import extract_text_from_pdf
-from app.ingestion.file_loader import load_file
 
 load_dotenv()
 
-# ✅ Hugging Face API Token
-API_TOKEN = os.getenv("HUGGING_FACE_API_TOKEN")
-if not API_TOKEN:
-    raise ValueError("HUGGING_FACE_API_TOKEN environment variable is required")
 
-API_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
-
-
-def classify_document(text, labels):
+class Classifier:
     """
-    Send text to Hugging Face API for zero-shot classification.
-    """
-    if not text or not labels:
-        raise ValueError("Both text and labels are required")
+        Classifier class to handle document classification using Hugging Face API.
+        """
 
-    payload = {"inputs": text, "parameters": {"candidate_labels": labels}}
+    def __init__(self, api_token_env="HUGGING_FACE_API_TOKEN", model_url=None, labels_file=None):
+        """
+        Initialize the Classifier with API token, model URL, and labels file path.
+        """
+        self.api_token = os.getenv(api_token_env)
+        if not self.api_token:
+            raise ValueError(f"{api_token_env} environment variable is required")
 
-    response = requests.post(API_URL, headers=headers, json=payload)
-    if response.status_code != 200:
-        raise RuntimeError(f"Hugging Face API error {response.status_code}: {response.text}")
-    return response.json()
+        self.api_url = model_url or "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
+        self.headers = {"Authorization": f"Bearer {self.api_token}"}
 
+        self.labels = self._load_labels(labels_file) if labels_file else []
 
-# ✅ Load JSON labels
-script_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.dirname(os.path.dirname(script_dir))
-labels_path = os.path.join(script_dir, 'doc_types.json')
-#input_path = os.path.join(project_root, 'documents', 'inputs', 'img_2.png')
-input_path=r"C:\Users\azsai\.cache\kagglehub\datasets\shaz13\real-world-documents-collections\versions\1\docs-sm\invoice\ti10161552.jpg"
+    def _load_labels(self, labels_file):
+        """
+            Load classification labels from a JSON file.
+            """
+        with open(labels_file, 'r') as f:
+            return list(json.load(f).keys())
 
-with open(labels_path, 'r') as f:
-    doc_labels = json.load(f)
-labels = list(doc_labels.keys())
+    def classify_document(self, text, labels=None):
+        """
+            Send text to Hugging Face API for zero-shot classification.
+            """
+        if not text or not (labels or self.labels):
+            raise ValueError("Both text and labels are required")
 
-# ✅ Extract text from document (with fallback)
-try:
-    text_to_classify = load_file(input_path)
-except FileNotFoundError:
-    print(f"⚠ document not found at {input_path}! Using fallback text.")
-    text_to_classify = "This is an invoice for services rendered."
+        payload = {"inputs": text, "parameters": {"candidate_labels": labels or self.labels}}
+        response = requests.post(self.api_url, headers=self.headers, json=payload)
 
-# ✅ Classify
-result = classify_document(text_to_classify, labels)
+        if response.status_code != 200:
+            raise RuntimeError(f"Hugging Face API error {response.status_code}: {response.text}")
 
-# ✅ Print nicely
-print(json.dumps(result, indent=2))
+        return response.json()
