@@ -2,57 +2,81 @@ import os
 from app.ingestion.TextExtractor import TextExtractor
 from app.tokenization.Tokenizer import Tokenizer
 from app.db.DB_Manager import DBManager
+from app.classification.Classifier import Classifier
 from app.db.Models import Document, Token
 
 
 def main():
-    # Initialize components
+    file_path = input("Enter the file path: ").strip()
+    if not os.path.exists(file_path):
+        print(f"[ERROR] File not found: {file_path}")
+        return
+
+    print("[INFO] Initializing components...")
     extractor = TextExtractor()
     tokenizer = Tokenizer()
+    classifier = Classifier(labels_file="doc_types.json")
     db_manager = DBManager()
-
-    # File path input
-    file_path = input("Enter the file path to extract text: ")
-    if not os.path.exists(file_path):
-        print(f"File not found: {file_path}")
-        return
 
     try:
         # Step 1: Extract text
-        extracted_text = extractor.extract(file_path)
-        print(f"Text extracted from {file_path} successfully.")
+        print("[INFO] Extracting text from the file...")
+        text = extractor.extract(file_path)
+        print("[SUCCESS] Text extraction completed.")
 
         # Step 2: Tokenize text
-        tokens = tokenizer.tokenize_text(extracted_text)
-        phonetic_tokens = tokenizer.phonetic_tokenization(extracted_text)
-        print("Tokens and phonetic tokens generated successfully.")
+        print("[INFO] Tokenizing the extracted text...")
+        tokens = tokenizer.tokenize_text(text)
+        phonetics = tokenizer.phonetic_tokenization(text)
+        print("[SUCCESS] Tokenization completed.")
 
-        # Step 3: Add data to the database
+        # Step 3: Classify document
+        print("[INFO] Classifying the document...")
+        classification_result = classifier.classify_document(text)
+        print("[SUCCESS] Classification completed. Here are the results:")
+        for label, score in zip(classification_result['labels'], classification_result['scores']):
+            print(f"  - Label: {label}, Confidence: {score:.2f}")
+        selected_type = classification_result['labels'][0]
+        print(f"[INFO] Selected Document Type: {selected_type}")
+
+        # Confirm before adding data to the database
+        proceed = input("Proceed with adding data to the database? (type 'yes' to continue): ").strip().lower()
+        if proceed != 'yes':
+            print("[INFO] Data addition to the database aborted by user.")
+            return
+
+        # Step 4: Add data to the database
+        print("[INFO] Adding data to the database...")
         with db_manager.session_manager.get_session() as session:
             # Add document
             document = Document(
                 filename=os.path.basename(file_path),
                 file_path=file_path,
-                raw_text=extracted_text
+                raw_text=text,
+                document_type=selected_type,
+                classification_confidence=max(classification_result['scores']),
+                json_result=classification_result
             )
             document = db_manager.add_document(session, document)
+            print(f"[SUCCESS] Document added to the database with ID: {document.id}")
 
             # Add tokens
-            for position, (token, phonetic) in enumerate(zip(tokens, phonetic_tokens)):
-                token_obj = Token(
+            for pos, (tok, phon) in enumerate(zip(tokens, phonetics)):
+                db_manager.add_token(session, Token(
                     document_id=document.id,
-                    token=token,
-                    phonetic_token=phonetic,
-                    position=position
-                )
-                db_manager.add_token(session, token_obj)
+                    token=tok,
+                    phonetic_token=phon,
+                    position=pos
+                ))
+            print("[SUCCESS] Tokens added to the database.")
 
-            # Commit all changes
             session.commit()
-            print(f"Data successfully added to the database for document ID {document.id}.")
+            print("[SUCCESS] All data committed to the database.")
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print("[ERROR] An error occurred during processing:")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
